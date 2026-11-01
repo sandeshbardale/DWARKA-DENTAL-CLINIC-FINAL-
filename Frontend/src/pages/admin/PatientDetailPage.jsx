@@ -5,7 +5,7 @@ import {
   Pill, Trash2, IndianRupee, PlusCircle, CreditCard, Edit3,
   Activity, CalendarPlus, RefreshCw, AlertCircle, CheckCircle2,
   Clock, TrendingUp, Wallet, Receipt, ChevronDown, ChevronUp,
-  Eye, Printer, MoreVertical, Ban, IndianRupee, BadgeCheck,
+  Eye, Printer, MoreVertical, Ban, BadgeCheck,
   HeartPulse, FlaskConical, UserCheck, Stethoscope, X, Save,
   ShieldAlert, RotateCcw,
 } from 'lucide-react';
