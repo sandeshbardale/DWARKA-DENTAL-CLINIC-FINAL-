@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   Users, Calendar, Clock, AlertTriangle, Plus, Phone, Calendar as CalendarIcon,
-  Loader2, CheckCircle2, ShieldAlert, Edit3, DollarSign, Download, Send, Filter,
+  Loader2, CheckCircle2, ShieldAlert, Edit3, IndianRupee, Download, Send, Filter,
   RefreshCw, Trash2, ArrowUpDown, ChevronDown, ChevronRight, Tag, RotateCcw,
   Sparkles, Stethoscope, Activity, User, ExternalLink, MapPin, HeartPulse, UserCheck, Shield, ArrowRight, ArrowLeft, Search, FileSpreadsheet
 } from 'lucide-react';
@@ -1878,7 +1878,7 @@ export default function CategoryBoardDashboard() {
                 regStep === 3 ? 'bg-white text-slate-900 shadow-2xs font-bold' : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              <DollarSign size={14} /> Step 3: Treatment & Fee
+              <IndianRupee size={14} /> Step 3: Treatment & Fee
             </button>
           </div>
 
@@ -2110,7 +2110,7 @@ export default function CategoryBoardDashboard() {
             {regStep === 3 && (
               <div className="space-y-4 animate-fade-in">
                 <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-100 pb-2">
-                  <DollarSign size={15} className="text-[var(--color-primary-500)]" /> Treatment Category & Payment Setup
+                  <IndianRupee size={15} className="text-[var(--color-primary-500)]" /> Treatment Category & Payment Setup
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -2279,7 +2279,7 @@ export default function CategoryBoardDashboard() {
             {(isAdmin || userRole === 'receptionist') && (
               <form onSubmit={handleAddPaymentHistory} className="p-4 rounded-xl bg-blue-50/60 border border-blue-200 space-y-3">
                 <p className="text-xs font-bold text-blue-900 flex items-center gap-1.5">
-                  <DollarSign size={14} /> Record Payment by Date:
+                  <IndianRupee size={14} /> Record Payment by Date:
                 </p>
 
                 <div className="grid grid-cols-4 gap-3">

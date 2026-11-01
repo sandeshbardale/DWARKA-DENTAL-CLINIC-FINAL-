@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Phone, Mail, MapPin, User, Calendar, FileText,
-  Pill, Trash2, DollarSign, PlusCircle, CreditCard, Edit3,
+  Pill, Trash2, IndianRupee, PlusCircle, CreditCard, Edit3,
   Activity, CalendarPlus, RefreshCw, AlertCircle, CheckCircle2,
   Clock, TrendingUp, Wallet, Receipt, ChevronDown, ChevronUp,
   Eye, Printer, MoreVertical, Ban, IndianRupee, BadgeCheck,
@@ -27,7 +27,7 @@ const TABS = [
   { id: 'appointments',  label: 'Appointments',     icon: Calendar },
   { id: 'clinical',      label: 'Clinical History', icon: FileText },
   { id: 'odontogram',    label: 'Dental Chart',     icon: Activity },
-  { id: 'billing',       label: 'Billing & Payments', icon: DollarSign },
+  { id: 'billing',       label: 'Billing & Payments', icon: IndianRupee },
 ];
 
 // ─── Payment type colours ─────────────────────────────────────────────────────

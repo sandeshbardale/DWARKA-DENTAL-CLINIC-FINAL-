@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Calendar, UserCog,
-  DollarSign, BarChart2, Bell, Settings, Stethoscope,
+  IndianRupee, BarChart2, Bell, Settings, Stethoscope,
   ClipboardList, History, User, UserPlus, Tag, Brain,
   CheckCircle, ChevronRight,
 } from 'lucide-react';
@@ -29,7 +29,7 @@ const ADMIN_GROUPS = [
   {
     label: 'Finance & Reports',
     items: [
-      { label: 'Revenue',       to: '/admin/revenue',  icon: DollarSign },
+      { label: 'Revenue',       to: '/admin/revenue',  icon: IndianRupee },
       { label: 'Reports',       to: '/admin/reports',  icon: BarChart2 },
     ],
   },
@@ -83,7 +83,7 @@ const RECEPTIONIST_GROUPS = [
   {
     label: 'Operations',
     items: [
-      { label: 'Payments',   to: '/receptionist/payments',   icon: DollarSign },
+      { label: 'Payments',   to: '/receptionist/payments',   icon: IndianRupee },
       { label: 'Staff',      to: '/receptionist/staff',      icon: UserCog },
       { label: 'AI X-ray',   to: '/receptionist/ai-xray',   icon: Brain },
       { label: 'Follow-ups', to: '/receptionist/follow-ups', icon: ClipboardList },

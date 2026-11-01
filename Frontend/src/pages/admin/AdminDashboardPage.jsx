@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Users, Calendar, CheckCircle, AlertTriangle, DollarSign, Clock, TrendingUp,
+  Users, Calendar, CheckCircle, AlertTriangle, IndianRupee, Clock, TrendingUp,
   Activity, RefreshCw, X, AlertCircle, Stethoscope, Brain, BarChart2,
   ChevronRight, ArrowUpRight, ArrowDownRight, Minus, Eye, Zap,
   UserCheck, Timer, Layers,
@@ -300,7 +300,7 @@ export default function AdminDashboardPage() {
     {
       label: "Today's Collections",
       value: formatCurrency(data.todayCollections ?? 0),
-      icon: DollarSign,
+      icon: IndianRupee,
       iconColor: 'text-emerald-600',
       iconBg: 'bg-emerald-50',
       trendLabel: null,
@@ -531,7 +531,7 @@ export default function AdminDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <DollarSign size={16} className="text-[var(--color-primary-600)]" />
+              <IndianRupee size={16} className="text-[var(--color-primary-600)]" />
               Collections by Payment Mode
             </CardTitle>
             <Link to="/admin/revenue" className="text-xs text-[var(--color-primary-500)] hover:underline font-medium flex items-center gap-0.5">

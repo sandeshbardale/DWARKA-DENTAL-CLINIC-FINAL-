@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { DollarSign, TrendingUp, RefreshCw, CreditCard, Banknote, Smartphone, AlertTriangle, Plus } from 'lucide-react';
+import { IndianRupee, TrendingUp, RefreshCw, CreditCard, Banknote, Smartphone, AlertTriangle, Plus } from 'lucide-react';
 import { formatCurrency, formatDate, today } from '../../utils/formatters';
 import { api } from '../../utils/api';
 import { useAuth } from '../../hooks/useAuth';
@@ -13,7 +13,7 @@ const MODE_ICONS = {
   upi: Smartphone,
   cash: Banknote,
   card: CreditCard,
-  default: DollarSign,
+  default: IndianRupee,
 };
 
 function RecordPaymentModal({ onClose, onSave, saving }) {
