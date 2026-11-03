@@ -36,7 +36,9 @@ async function callMlService(imagePath) {
 
     const response = await axios.post(`${ML_SERVICE_URL}/predict`, form, {
       headers: form.getHeaders(),
-      timeout: 30000, // 30 second timeout
+      timeout: 60000, // 60 second timeout — inference can be slow on CPU
+      maxContentLength: 30 * 1024 * 1024, // 30 MB (annotated image in base64)
+      maxBodyLength: 30 * 1024 * 1024,
     })
 
     const data = response.data
@@ -45,10 +47,15 @@ async function callMlService(imagePath) {
     }
 
     return {
-      result: data.result,        // 'cavity' | 'normal' | 'uncertain'
+      result: data.result,        // 'cavity' | 'findings_detected' | 'normal'
       confidence: parseFloat(data.confidence) || 0,
       suggestions: Array.isArray(data.suggestions) ? data.suggestions : [data.suggestions || ''],
-      modelVersion: data.modelVersion || '1.0.0',
+      modelVersion: data.modelVersion || 'yolo11m-dental-v1',
+      // Rich YOLO fields
+      findings: Array.isArray(data.findings) ? data.findings : [],
+      count: typeof data.count === 'number' ? data.count : 0,
+      summary: data.summary || '',
+      annotatedImage: data.annotatedImage || null, // base64 PNG string or null
     }
   } catch (err) {
     if (err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND' || err.response?.status >= 500) {
@@ -100,9 +107,17 @@ async function uploadAndAnalyzeXray(file, patientId, requestingUser) {
   })
 
   // ── Persist AI report ────────────────────────────────────────────────────
-  const resultNormalized = ['cavity', 'normal', 'uncertain'].includes(aiResult.result.toLowerCase())
-    ? aiResult.result.toLowerCase()
-    : 'uncertain'
+  // Normalise result: the ML service returns 'cavity' | 'findings_detected' | 'normal'
+  // The DB enum only has 'cavity' | 'normal' | 'uncertain' — map accordingly.
+  let resultNormalized
+  if (aiResult.result === 'cavity') {
+    resultNormalized = 'cavity'
+  } else if (aiResult.result === 'normal') {
+    resultNormalized = 'normal'
+  } else {
+    // 'findings_detected' or anything else → treat as 'uncertain'
+    resultNormalized = 'uncertain'
+  }
 
   const report = await aiReportDb.create({
     clinic_id: clinic.id,
@@ -112,6 +127,10 @@ async function uploadAndAnalyzeXray(file, patientId, requestingUser) {
     suggestions: aiResult.suggestions,
     confidence: parseFloat(aiResult.confidence.toFixed(4)),
     model_version: aiResult.modelVersion,
+    findings: aiResult.findings,
+    summary: aiResult.summary,
+    finding_count: aiResult.count,
+    annotated_image: aiResult.annotatedImage || null,
   })
 
   return {
@@ -122,6 +141,10 @@ async function uploadAndAnalyzeXray(file, patientId, requestingUser) {
     confidence: report.confidence,
     suggestions: aiResult.suggestions,
     modelVersion: aiResult.modelVersion,
+    findings: aiResult.findings,
+    count: aiResult.count,
+    summary: aiResult.summary,
+    annotatedImage: aiResult.annotatedImage || null,
     date: new Date().toISOString().split('T')[0],
     doctorReview: null,
     doctorNotes: null,
@@ -141,7 +164,11 @@ async function getAiReportsByPatient(patientId) {
     result: r.result,
     confidence: r.confidence,
     suggestions: Array.isArray(r.suggestions) ? r.suggestions : [r.suggestions],
-    modelVersion: r.model_version || '1.0.0',
+    modelVersion: r.model_version || 'yolo11m-dental-v1',
+    findings: Array.isArray(r.findings) ? r.findings : [],
+    count: r.finding_count || 0,
+    summary: r.summary || '',
+    annotatedImage: r.annotated_image || null,
     date: r.created_at ? new Date(r.created_at).toISOString().split('T')[0] : null,
     doctorReview: r.doctor_review || null,
     doctorNotes: r.doctor_notes || null,

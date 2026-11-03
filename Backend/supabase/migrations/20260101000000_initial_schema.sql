@@ -629,6 +629,14 @@ CREATE TABLE IF NOT EXISTS ai_reports (
   -- confidence is a decimal fraction (0.0000–1.0000); use NUMERIC not INTEGER
   confidence       NUMERIC(6,4)                  NOT NULL CHECK (confidence BETWEEN 0 AND 1),
   model_version    TEXT                          NOT NULL,
+  -- Rich YOLO findings: array of {label, confidence, box, suggestion}
+  findings         JSONB                         NOT NULL DEFAULT '[]',
+  -- Human-readable summary produced by the ML service
+  summary          TEXT,
+  -- Count of detected findings
+  finding_count    INTEGER                       NOT NULL DEFAULT 0,
+  -- Base64 annotated image (data:image/png;base64,…) returned by ML service
+  annotated_image  TEXT,
   reviewed_by_id   UUID                          REFERENCES users(id) ON DELETE SET NULL,
   reviewed_at      TIMESTAMPTZ,
   -- NULL = not yet reviewed; 'confirmed' | 'rejected' once reviewed
@@ -638,6 +646,12 @@ CREATE TABLE IF NOT EXISTS ai_reports (
   created_at       TIMESTAMPTZ                   NOT NULL DEFAULT NOW()
   -- No updated_at column
 );
+
+-- Add new columns to existing deployments (safe to re-run)
+ALTER TABLE ai_reports ADD COLUMN IF NOT EXISTS findings       JSONB    NOT NULL DEFAULT '[]';
+ALTER TABLE ai_reports ADD COLUMN IF NOT EXISTS summary        TEXT;
+ALTER TABLE ai_reports ADD COLUMN IF NOT EXISTS finding_count  INTEGER  NOT NULL DEFAULT 0;
+ALTER TABLE ai_reports ADD COLUMN IF NOT EXISTS annotated_image TEXT;
 
 CREATE INDEX IF NOT EXISTS idx_ai_reports_patient_id_created_at
   ON ai_reports (patient_id, created_at DESC);

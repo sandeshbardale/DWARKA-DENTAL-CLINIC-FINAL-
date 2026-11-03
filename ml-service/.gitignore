@@ -1,0 +1,17 @@
+# Python virtual environment — never commit this (200MB+)
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local env overrides
+.env
+
+# Weights — tracked separately if needed, not via git
+# Uncomment below if you do NOT want to commit app.pt to git (recommended if >100MB)
+# app.pt
