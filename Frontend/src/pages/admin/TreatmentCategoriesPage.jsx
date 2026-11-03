@@ -9,26 +9,27 @@ function CategoryModal({ initial, onClose, onSave, saving }) {
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="card p-6 w-full max-w-md space-y-4">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center sm:p-4" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="card p-5 sm:p-6 w-full max-w-md space-y-4 rounded-t-2xl sm:rounded-2xl max-h-[90svh] overflow-y-auto">
+        <div className="w-10 h-1 rounded-full bg-slate-300 mx-auto sm:hidden" aria-hidden="true" />
         <h3 className="font-semibold text-[var(--color-text)]">{initial ? 'Edit Category' : 'New Treatment Category'}</h3>
         <div className="space-y-3">
           <div>
             <label className="text-xs font-medium text-[var(--color-text-muted)]">Category Name *</label>
-            <input className="input mt-1 w-full" value={form.name} onChange={e => set('name', e.target.value)} placeholder="e.g. Root Canal Treatment" />
+            <input className="form-input mt-1 w-full" value={form.name} onChange={e => set('name', e.target.value)} placeholder="e.g. Root Canal Treatment" />
           </div>
           <div>
             <label className="text-xs font-medium text-[var(--color-text-muted)]">Code * (auto-uppercased)</label>
-            <input className="input mt-1 w-full font-mono uppercase" value={form.code} onChange={e => set('code', e.target.value.toUpperCase())} placeholder="e.g. RCT" maxLength={10} />
+            <input className="form-input mt-1 w-full font-mono uppercase" value={form.code} onChange={e => set('code', e.target.value.toUpperCase())} placeholder="e.g. RCT" maxLength={10} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium text-[var(--color-text-muted)]">Duration (minutes)</label>
-              <input type="number" min={5} max={480} className="input mt-1 w-full" value={form.defaultDurationMinutes} onChange={e => set('defaultDurationMinutes', Number(e.target.value))} />
+              <input type="number" min={5} max={480} className="form-input mt-1 w-full" value={form.defaultDurationMinutes} onChange={e => set('defaultDurationMinutes', Number(e.target.value))} />
             </div>
             <div>
               <label className="text-xs font-medium text-[var(--color-text-muted)]">Follow-up (days, 0=none)</label>
-              <input type="number" min={0} max={365} className="input mt-1 w-full" value={form.defaultFollowUpDays} onChange={e => set('defaultFollowUpDays', Number(e.target.value))} />
+              <input type="number" min={0} max={365} className="form-input mt-1 w-full" value={form.defaultFollowUpDays} onChange={e => set('defaultFollowUpDays', Number(e.target.value))} />
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -36,9 +37,9 @@ function CategoryModal({ initial, onClose, onSave, saving }) {
             <label htmlFor="catActive" className="text-sm">Active</label>
           </div>
         </div>
-        <div className="flex gap-2 justify-end">
+        <div className="flex flex-col-reverse sm:flex-row gap-2 sm:justify-end">
           <button onClick={onClose} className="btn btn-outline btn-sm" disabled={saving}>Cancel</button>
-          <button onClick={() => onSave(form)} disabled={saving || !form.name || !form.code} className="btn btn-primary btn-sm">
+          <button onClick={() => onSave(form)} disabled={saving || !form.name || !form.code} className="btn btn-primary btn-sm justify-center">
             {saving ? 'Saving…' : (initial ? 'Update' : 'Create')}
           </button>
         </div>
@@ -107,21 +108,21 @@ export default function TreatmentCategoriesPage() {
 
       {/* Filters */}
       <div className="card p-4 flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 flex-1 min-w-48">
-          <Search size={16} className="text-[var(--color-text-muted)]" />
+        <div className="flex items-center gap-2 flex-1 bg-[var(--color-bg-subtle)] px-3 py-2 rounded-lg" style={{ minWidth: 'min(100%, 180px)' }}>
+          <Search size={16} className="text-[var(--color-text-muted)] flex-shrink-0" />
           <input
             type="search" placeholder="Search categories…"
             value={searchInput} onChange={e => setSearchInput(e.target.value)}
-            className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)]"
+            className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)] min-w-0"
           />
         </div>
         <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-          className="text-sm border border-[var(--color-border)] rounded px-3 py-1.5 bg-[var(--color-bg)] text-[var(--color-text)]">
+          className="form-select text-sm flex-1 sm:flex-none" style={{ minWidth: '120px', maxWidth: '160px' }}>
           <option value="">All Statuses</option>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
-        <button onClick={fetchCategories} className="btn btn-outline btn-sm flex items-center gap-1">
+        <button onClick={fetchCategories} className="btn btn-outline btn-sm flex items-center gap-1 flex-shrink-0">
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
         </button>
       </div>

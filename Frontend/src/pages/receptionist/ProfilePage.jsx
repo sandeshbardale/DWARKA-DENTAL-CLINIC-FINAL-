@@ -7,9 +7,9 @@ export default function ProfilePage() {
   return (
     <div className="space-y-5 animate-fade-in max-w-xl">
       <h1 className="text-xl font-semibold text-[var(--color-text)]">My Profile</h1>
-      <div className="card p-6 flex items-center gap-5">
+      <div className="card p-5 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4">
         <Avatar name={user?.name || ''} size="xl" />
-        <div>
+        <div className="text-center sm:text-left">
           <h2 className="text-lg font-semibold text-[var(--color-text)]">{user?.name}</h2>
           <p className="text-sm text-[var(--color-text-muted)]">{user?.designation}</p>
         </div>

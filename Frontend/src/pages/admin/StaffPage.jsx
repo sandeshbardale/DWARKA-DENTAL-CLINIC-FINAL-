@@ -207,7 +207,7 @@ export default function StaffPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[var(--color-text-muted)] mb-1">Email Address *</label>
                 <input
@@ -236,7 +236,7 @@ export default function StaffPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[var(--color-text-muted)] mb-1">Phone Number</label>
                 <input

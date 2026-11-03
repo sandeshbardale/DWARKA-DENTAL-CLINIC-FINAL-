@@ -109,9 +109,9 @@ function AptTooltip({ active, payload, label }) {
 // ─── Section Heading ──────────────────────────────────────────────────────────
 function SectionHeading({ icon: Icon, title, sub, action }) {
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
       <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-50)] flex items-center justify-center">
+        <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-50)] flex items-center justify-center flex-shrink-0">
           <Icon size={16} className="text-[var(--color-primary-600)]" />
         </div>
         <div>

@@ -809,6 +809,399 @@ a:hover {
 }
 
 /* ============================================================
+   RESPONSIVE DESIGN SYSTEM — FULL APPLICATION
+   Breakpoints: mobile-first, content-driven
+   ============================================================ */
+
+/* ── page-container: missing utility referenced by AttendancePage ── */
+.page-container {
+  width: 100%;
+}
+
+/* ── Responsive main content padding ── */
+@media (max-width: 640px) {
+  main[class*="overflow-y-auto"] {
+    padding: 12px 14px !important;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  main[class*="overflow-y-auto"] {
+    padding: 16px 18px !important;
+  }
+}
+
+/* ── Responsive page header ── */
+@media (max-width: 640px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .page-title {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ── Responsive header bar ── */
+@media (max-width: 479px) {
+  header.sticky.top-0 {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    gap: 8px !important;
+  }
+}
+
+/* ── Responsive toast ── */
+@media (max-width: 640px) {
+  .toast-container {
+    bottom: 16px;
+    right: 12px;
+    left: 12px;
+    max-width: 100%;
+  }
+}
+
+/* ── Responsive tables: scroll wrapper ── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Responsive modal system ── */
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 8px;
+    align-items: flex-end;
+  }
+  .modal-content {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 92vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+  .modal-header {
+    padding: 14px 16px;
+  }
+}
+
+/* ── Responsive filters bar ── */
+@media (max-width: 640px) {
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters-bar > * {
+    width: 100%;
+  }
+  .filters-bar .form-select,
+  .filters-bar select {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+}
+
+/* ── Responsive KPI / stat cards ── */
+@media (max-width: 479px) {
+  .kpi-card {
+    padding: 14px;
+  }
+  .kpi-card .text-xl {
+    font-size: 1.125rem;
+  }
+}
+
+/* ── Responsive cards ── */
+@media (max-width: 640px) {
+  .card {
+    border-radius: var(--radius-md);
+  }
+}
+
+/* ── Touch targets: minimum 44px tap size ── */
+@media (max-width: 768px) {
+  .btn-xs {
+    min-height: 36px;
+    min-width: 36px;
+  }
+  .btn-sm {
+    min-height: 38px;
+  }
+}
+
+/* ── Responsive sidebar brand header ── */
+.sidebar-brand-header {
+  position: relative;
+}
+
+/* ── Dental chart: responsive tooth arch ── */
+.dental-arch-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+.dental-arch-inner {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+  min-width: 100%;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .dental-arch-inner {
+    justify-content: flex-start;
+    padding: 4px 2px;
+  }
+}
+.dental-scroll-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--color-text-subtle);
+  padding: 4px 0 0;
+}
+@media (max-width: 900px) {
+  .dental-scroll-hint {
+    display: block;
+  }
+}
+
+/* ── Responsive appointment calendar ── */
+.cal-scroll-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--color-text-subtle);
+  padding: 4px 8px;
+  background: var(--color-bg-subtle);
+  border-bottom: 1px solid var(--color-border);
+}
+@media (max-width: 900px) {
+  .cal-scroll-hint {
+    display: block;
+  }
+}
+
+/* ── Registration form centering ── */
+.register-form-container {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* ── Responsive inline patient profile header ── */
+@media (max-width: 640px) {
+  .patient-profile-header {
+    flex-direction: column !important;
+  }
+  .patient-profile-header .patient-avatar {
+    margin: 0 auto;
+  }
+  .patient-profile-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .patient-profile-actions .btn {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+}
+
+/* ── Responsive billing summary ── */
+@media (max-width: 640px) {
+  .billing-summary-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Mobile-friendly form grids ── */
+@media (max-width: 480px) {
+  .form-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+  .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (min-width: 481px) and (max-width: 640px) {
+  .form-grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Attendance page fixes ── */
+@media (max-width: 768px) {
+  .attendance-user-list {
+    max-height: 40vh !important;
+  }
+}
+
+/* ── Revenue chart responsive ── */
+@media (max-width: 640px) {
+  .revenue-chart-height {
+    height: 180px !important;
+  }
+}
+
+/* ── Notification panel responsive ── */
+@media (max-width: 640px) {
+  #notifications-panel,
+  [id="notifications-panel"] {
+    position: fixed !important;
+    top: 52px !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-height: 70vh !important;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+  }
+}
+
+/* ── Overflow safety net ── */
+body {
+  overflow-x: hidden;
+}
+#root {
+  overflow-x: hidden;
+}
+
+/* ── Responsive data table (card-view toggle helper) ── */
+.data-table-mobile-hidden {
+  /* Columns to hide on mobile; apply this class to <th>/<td> */
+}
+@media (max-width: 640px) {
+  .data-table-mobile-hidden {
+    display: none !important;
+  }
+}
+
+/* ── Stack flex groups on mobile ── */
+@media (max-width: 480px) {
+  .flex-stack-mobile {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .flex-stack-mobile > * {
+    width: 100% !important;
+  }
+}
+
+/* ── Responsive tabs ── */
+.tabs-scrollable {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tabs-scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Safe area insets for notched devices ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .sidebar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .toast-container {
+    bottom: max(28px, calc(16px + env(safe-area-inset-bottom)));
+  }
+}
+
+/* ── Responsive chart labels ── */
+@media (max-width: 640px) {
+  .recharts-text,
+  .recharts-cartesian-axis-tick-value {
+    font-size: 9px !important;
+  }
+}
+
+/* ── Typography fluid scaling ── */
+@media (max-width: 640px) {
+  .page-title {
+    font-size: clamp(0.9375rem, 3.5vw, 1.125rem);
+  }
+  h1.text-xl {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+}
+
+/* ── Ensure form inputs are never too small ── */
+@media (max-width: 640px) {
+  .form-input,
+  .form-select,
+  .form-textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="date"],
+  input[type="time"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+  }
+}
+
+/* ── Responsive section headings in dashboard ── */
+@media (max-width: 640px) {
+  .section-heading {
+    font-size: 0.875rem;
+  }
+}
+
+/* ── Button group wrapping on mobile ── */
+@media (max-width: 480px) {
+  .btn-group-mobile-wrap {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .btn-group-mobile-wrap > .btn {
+    flex: 1 1 auto;
+    min-width: 100px;
+  }
+}
+
+/* ── Responsive card padding ── */
+@media (max-width: 640px) {
+  .card.p-5 {
+    padding: 14px !important;
+  }
+  .card.p-6 {
+    padding: 16px !important;
+  }
+  .card.p-4 {
+    padding: 12px !important;
+  }
+}
+
+/* ── Attendance btn fix (missing .btn base class) ── */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  border: none;
+  font-size: 0.875rem;
+  padding: 0 16px;
+  height: 36px;
+}
+.btn-primary { background: linear-gradient(135deg,#2563eb,#1d4ed8); color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,.35); }
+.btn-primary:hover { background: linear-gradient(135deg,#1d4ed8,#1e40af); }
+.btn-secondary { background: #fff; color: var(--color-text); border: 1.5px solid var(--color-border-strong); box-shadow: var(--shadow-xs); }
+.btn-secondary:hover { background: var(--color-bg-subtle); }
+
+/* ============================================================
    GLOBAL UI POLISH — Consistent sizing across all panels
    ============================================================ */
 

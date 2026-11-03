@@ -29,7 +29,15 @@ export default function NotificationPanel({ onClose }) {
     <div
       id="notifications-panel"
       ref={panelRef}
-      className="absolute right-0 top-full mt-2 w-80 bg-white border border-[var(--color-border)] rounded-xl shadow-lg z-50 overflow-hidden animate-scale-in"
+      className="absolute right-0 top-full mt-2 bg-white border border-[var(--color-border)] rounded-xl shadow-lg z-50 overflow-hidden animate-scale-in"
+      style={{
+        width: 'min(320px, calc(100vw - 24px))',
+        maxWidth: '320px',
+        maxHeight: '70vh',
+        overflowY: 'auto',
+        /* On very small screens, prevent going off the left edge */
+        right: '0',
+      }}
       role="dialog"
       aria-label="Notifications panel"
     >

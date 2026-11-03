@@ -447,7 +447,7 @@ export default function RegisterPatientPage() {
 
   // ── Form ──────────────────────────────────────────────────────────────────
   return (
-    <div className="max-w-2xl space-y-6 animate-fade-in">
+    <div className="register-form-container space-y-6 animate-fade-in">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button
@@ -654,7 +654,7 @@ export default function RegisterPatientPage() {
                 Emergency Contact
                 <span className="text-xs font-normal text-[var(--color-text-muted)]">(optional)</span>
               </h3>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Field label="Name">
                   <TextInput placeholder="Contact name" value={form.emergencyName} onChange={e => update('emergencyName', e.target.value)} />
                 </Field>
@@ -784,7 +784,7 @@ export default function RegisterPatientPage() {
                 <span className="text-xs font-normal text-[var(--color-text-muted)]">(optional)</span>
               </h3>
 
-              <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-[var(--color-bg-subtle)] border border-[var(--color-border)]">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-[var(--color-bg-subtle)] border border-[var(--color-border)]">
                 <Field label="Advance Amount (₹)" hint="Amount collected today">
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] text-sm font-bold">₹</span>

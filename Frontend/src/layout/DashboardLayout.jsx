@@ -28,11 +28,11 @@ export default function DashboardLayout() {
       <Sidebar />
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen transition-all duration-300">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen transition-all duration-300 overflow-x-hidden">
         <Header />
         <main
-          className="flex-1 overflow-y-auto animate-fade-in"
-          style={{ padding: '20px 24px' }}
+          className="flex-1 overflow-y-auto overflow-x-hidden animate-fade-in"
+          style={{ padding: 'clamp(12px, 3vw, 24px) clamp(14px, 3.5vw, 28px)' }}
         >
           <Outlet />
         </main>

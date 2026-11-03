@@ -289,7 +289,7 @@ uuid-example-3,2026-10-28,half_day,09:00,13:00,Morning only`;
                 <select
                   value={selectedUser || ''}
                   onChange={(e) => setSelectedUser(e.target.value || null)}
-                  className="input w-[200px]"
+                  className="input w-full sm:w-[200px]"
                 >
                   <option value="">All Users</option>
                   {users.map(user => (
@@ -439,7 +439,7 @@ uuid-example-3,2026-10-28,half_day,09:00,13:00,Morning only`;
         <Card>
           <div className="p-4">
             <h3 className="text-sm font-semibold mb-4">Select Staff Members</h3>
-            <div className="space-y-2 max-h-[500px] overflow-y-auto">
+            <div className="space-y-2 attendance-user-list max-h-[500px] overflow-y-auto">
               {users.length === 0 ? (
                 <div className="text-center py-12 text-slate-500">
                   No staff members found
@@ -648,7 +648,7 @@ uuid-example-3,2026-10-28,half_day,09:00,13:00,Morning only`;
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container space-y-5 animate-fade-in">
       {/* Header */}
       <div className="page-header">
         <div>
@@ -664,21 +664,21 @@ uuid-example-3,2026-10-28,half_day,09:00,13:00,Morning only`;
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-slate-200 mb-6">
-        <nav className="flex gap-6">
+      <div className="border-b border-slate-200 mb-6 tabs-scrollable">
+        <nav className="flex gap-4 sm:gap-6 min-w-max">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 pb-3 border-b-2 transition-colors ${
+                className={`flex items-center gap-2 pb-3 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-blue-600 text-blue-600 font-medium'
                     : 'border-transparent text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <Icon size={18} />
+                <Icon size={16} />
                 {tab.label}
               </button>
             );

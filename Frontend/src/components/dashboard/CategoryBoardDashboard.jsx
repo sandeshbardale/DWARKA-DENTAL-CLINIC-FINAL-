@@ -1853,7 +1853,7 @@ export default function CategoryBoardDashboard() {
         <div className="space-y-5">
 
           {/* Step Progress Tab Bar */}
-          <div className="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-xl text-xs font-semibold">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 bg-slate-100 p-1.5 rounded-xl text-xs font-semibold">
             <button
               onClick={() => setRegStep(1)}
               className={`py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
@@ -2212,7 +2212,7 @@ export default function CategoryBoardDashboard() {
       {paymentHistoryCard && (
         <Modal open={true} onClose={() => setPaymentHistoryCard(null)} title={`Detailed Payment History — ${paymentHistoryCard.patientName}`} size="lg">
           <div className="space-y-5">
-            <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
               <div>
                 <p className="text-slate-500 font-medium">Total Treatment Cost:</p>
                 <p className="text-base font-bold text-slate-800">₹{paymentHistoryCard.totalFee || 0}</p>
@@ -2282,7 +2282,7 @@ export default function CategoryBoardDashboard() {
                   <IndianRupee size={14} /> Record Payment by Date:
                 </p>
 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
                     <label className="block text-[10px] font-semibold text-blue-900 mb-1">Payment Date</label>
                     <input
@@ -2347,7 +2347,7 @@ export default function CategoryBoardDashboard() {
       {editPatientCard && editForm && (
         <Modal open={true} onClose={() => setEditPatientCard(null)} title={`Edit Patient Details — ${editPatientCard.patientName}`} size="md">
           <form onSubmit={handleEditPatientSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Patient Full Name *</label>
                 <input
@@ -2371,7 +2371,7 @@ export default function CategoryBoardDashboard() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Treatment Category</label>
                 <select
@@ -2427,7 +2427,7 @@ export default function CategoryBoardDashboard() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Next Visit Date</label>
                 <input
@@ -2482,7 +2482,7 @@ export default function CategoryBoardDashboard() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
               <input
@@ -2541,7 +2541,7 @@ export default function CategoryBoardDashboard() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Category Code</label>
               <input

@@ -466,14 +466,16 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
       </div>
 
       {/* ── Patient Header ─────────────────────────────────────────────── */}
-      <div className="card p-6 bg-white border border-[var(--color-border)] rounded-xl shadow-sm">
-        <div className="flex flex-wrap items-start gap-5">
-          <Avatar name={patient.name} size="xl" />
-          <div className="flex-1 min-w-0">
+      <div className="card p-4 sm:p-6 bg-white border border-[var(--color-border)] rounded-xl shadow-sm">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
+          <div className="flex-shrink-0">
+            <Avatar name={patient.name} size="xl" />
+          </div>
+          <div className="flex-1 min-w-0 w-full">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-              <div>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <h1 className="text-2xl font-bold text-[var(--color-text)]">{patient.name}</h1>
+              <div className="text-center sm:text-left">
+                <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
+                  <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-text)]">{patient.name}</h1>
                   <StatusBadge status={patient.status} />
                 </div>
                 <p className="text-sm text-[var(--color-text-muted)] font-mono mt-0.5">
@@ -481,13 +483,13 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                 </p>
               </div>
               {/* Action buttons */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start w-full sm:w-auto">
                 {canEdit && (
                   <button
                     onClick={() => setBookAptOpen(true)}
                     className="btn btn-outline btn-xs flex items-center gap-1.5 text-emerald-600 border-emerald-200 hover:bg-emerald-50 font-semibold"
                   >
-                    <CalendarPlus size={13} /> Book Appointment
+                    <CalendarPlus size={13} /> Book
                   </button>
                 )}
                 {canEdit && (
@@ -495,7 +497,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                     onClick={openEditModal}
                     className="btn btn-outline btn-xs flex items-center gap-1.5 text-[var(--color-primary-600)] border-[var(--color-primary-200)] hover:bg-[var(--color-primary-50)] font-semibold"
                   >
-                    <Edit3 size={13} /> Edit Details
+                    <Edit3 size={13} /> Edit
                   </button>
                 )}
                 {canEdit && (
@@ -503,7 +505,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                     onClick={() => { setActiveTab('billing'); openPayModal(); }}
                     className="btn btn-xs flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold"
                   >
-                    <IndianRupee size={13} /> Add Payment
+                    <IndianRupee size={13} /> Payment
                   </button>
                 )}
               </div>
@@ -552,7 +554,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
       </div>
 
       {/* ── Tabs ─────────────────────────────────────────────────────────── */}
-      <div className="flex gap-0 border-b border-[var(--color-border)] overflow-x-auto">
+      <div className="flex gap-0 border-b border-[var(--color-border)] overflow-x-auto tabs-scrollable -mx-3 sm:mx-0 px-3 sm:px-0">
         {TABS.map(tab => (
           <button
             key={tab.id}
@@ -924,8 +926,8 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                             {inv.items?.length > 0 && (
                               <div>
                                 <p className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wide mb-2">Line Items</p>
-                                <div className="rounded-lg overflow-hidden border border-[var(--color-border)]">
-                                  <table className="w-full text-sm bg-white">
+                                <div className="rounded-lg overflow-hidden border border-[var(--color-border)] overflow-x-auto">
+                                  <table className="w-full text-sm bg-white" style={{ minWidth: '320px' }}>
                                     <thead className="bg-[var(--color-bg-subtle)]">
                                       <tr>
                                         <th className="text-left px-3 py-2 text-xs font-medium text-[var(--color-text-muted)]">Treatment</th>
@@ -1072,7 +1074,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
       {/* Edit Patient Modal */}
       <Modal open={editOpen} onClose={() => setEditOpen(false)} title={`Edit Patient — ${patient.name}`} size="lg">
         <form onSubmit={handleEditSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="col-span-2">
               <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Full Name *</label>
               <input required value={editForm.name} onChange={e => setEditForm({ ...editForm, name: e.target.value })} className="form-input" placeholder="Full Name" />
@@ -1130,9 +1132,9 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
               <textarea rows={2} value={editForm.medicalHistory} onChange={e => setEditForm({ ...editForm, medicalHistory: e.target.value })} className="form-input" />
             </div>
           </div>
-          <div className="flex gap-3 justify-end pt-2">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-2">
             <button type="button" onClick={() => setEditOpen(false)} className="btn btn-outline btn-sm">Cancel</button>
-            <button type="submit" disabled={saving} className="btn btn-primary btn-sm flex items-center gap-1.5">
+            <button type="submit" disabled={saving} className="btn btn-primary btn-sm flex items-center gap-1.5 justify-center">
               <Save size={14} /> {saving ? 'Saving…' : 'Save Changes'}
             </button>
           </div>
@@ -1195,7 +1197,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Amount (₹) *</label>
               <div className="relative">
@@ -1234,7 +1236,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
               <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Transaction Ref.</label>
               <input placeholder="UTR / Txn ID" value={payForm.transactionRef} onChange={e => setPayForm(f => ({ ...f, transactionRef: e.target.value }))} className="form-input" />
             </div>
-            <div className="col-span-2">
+            <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Notes</label>
               <input placeholder="e.g. Advance for RCT, Consultation fee…" value={payForm.notes} onChange={e => setPayForm(f => ({ ...f, notes: e.target.value }))} className="form-input" />
             </div>
@@ -1248,9 +1250,9 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             </div>
           )}
 
-          <div className="flex gap-3 justify-end pt-2">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-2">
             <button type="button" onClick={() => setPayModal(false)} className="btn btn-outline btn-sm">Cancel</button>
-            <button type="submit" disabled={payLoading} className="btn btn-primary btn-sm flex items-center gap-1.5">
+            <button type="submit" disabled={payLoading} className="btn btn-primary btn-sm flex items-center gap-1.5 justify-center">
               <CheckCircle2 size={14} /> {payLoading ? 'Saving…' : 'Record Payment'}
             </button>
           </div>
@@ -1290,9 +1292,9 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Notes</label>
             <input value={editPayForm.notes || ''} onChange={e => setEditPayForm(f => ({ ...f, notes: e.target.value }))} className="form-input" />
           </div>
-          <div className="flex gap-3 justify-end pt-2">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-2">
             <button type="button" onClick={() => setEditPayModal(false)} className="btn btn-outline btn-sm">Cancel</button>
-            <button type="submit" disabled={editPayLoading} className="btn btn-primary btn-sm flex items-center gap-1.5">
+            <button type="submit" disabled={editPayLoading} className="btn btn-primary btn-sm flex items-center gap-1.5 justify-center">
               <Save size={14} /> {editPayLoading ? 'Saving…' : 'Save Changes'}
             </button>
           </div>
@@ -1320,7 +1322,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             </div>
             <div className="space-y-2">
               {invForm.items.map((item, idx) => (
-                <div key={idx} className="grid grid-cols-12 gap-2 items-center">
+                <div key={idx} className="flex flex-wrap gap-2 items-center">
                   <input
                     placeholder="Treatment description"
                     value={item.description}
@@ -1329,7 +1331,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                       items[idx].description = e.target.value;
                       setInvForm(f => ({ ...f, items }));
                     }}
-                    className="form-input col-span-6 text-sm"
+                    className="form-input text-sm flex-1 min-w-[160px]"
                   />
                   <input
                     type="number" min={1} placeholder="Qty"
@@ -1339,9 +1341,10 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                       items[idx].quantity = e.target.value;
                       setInvForm(f => ({ ...f, items }));
                     }}
-                    className="form-input col-span-2 text-sm text-center"
+                    className="form-input text-sm text-center"
+                    style={{ width: '64px', flexShrink: 0 }}
                   />
-                  <div className="col-span-3 relative">
+                  <div className="relative" style={{ width: '110px', flexShrink: 0 }}>
                     <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] text-xs font-semibold">₹</span>
                     <input
                       type="number" min={0} placeholder="Price"
@@ -1358,7 +1361,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
                     <button
                       type="button"
                       onClick={() => setInvForm(f => ({ ...f, items: f.items.filter((_, i) => i !== idx) }))}
-                      className="col-span-1 p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+                      className="flex-shrink-0 p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
                     >
                       <X size={14} />
                     </button>
@@ -1368,7 +1371,7 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-[var(--color-text-muted)] block mb-1">Discount (₹)</label>
               <input type="number" min={0} value={invForm.discount} onChange={e => setInvForm(f => ({ ...f, discount: e.target.value }))} className="form-input" />
@@ -1392,9 +1395,9 @@ export default function PatientDetailPage({ basePath = '/admin' }) {
             ) : null;
           })()}
 
-          <div className="flex gap-3 justify-end pt-2">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-2">
             <button type="button" onClick={() => setInvModal(false)} className="btn btn-outline btn-sm">Cancel</button>
-            <button type="submit" disabled={invLoading} className="btn btn-primary btn-sm flex items-center gap-1.5">
+            <button type="submit" disabled={invLoading} className="btn btn-primary btn-sm flex items-center gap-1.5 justify-center">
               <FileText size={14} /> {invLoading ? 'Creating…' : 'Create Invoice'}
             </button>
           </div>

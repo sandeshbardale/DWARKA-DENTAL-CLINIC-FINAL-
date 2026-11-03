@@ -1,4 +1,5 @@
 ﻿import { useState, useEffect, useCallback, useRef } from 'react';
+import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   Search, Plus, Eye, Edit3, Loader2, RefreshCw, Filter, LayoutGrid, List,
@@ -400,7 +401,7 @@ export default function PatientsPage() {
           {/* Filters */}
           <div className="card p-3 flex flex-wrap gap-3 items-center">
             {/* Search */}
-            <div className="flex items-center gap-2 flex-1 min-w-48 bg-[var(--color-bg-subtle)] px-3 py-2 rounded-lg">
+            <div className="flex items-center gap-2 flex-1 bg-[var(--color-bg-subtle)] px-3 py-2 rounded-lg" style={{ minWidth: 'min(100%, 200px)' }}>
               <Search size={15} className="text-[var(--color-text-muted)] shrink-0" />
               <input
                 type="search"
@@ -408,10 +409,10 @@ export default function PatientsPage() {
                 placeholder="Search by name, ID, or phone…"
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
-                className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)] placeholder:text-[var(--color-text-subtle)]"
+                className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)] placeholder:text-[var(--color-text-subtle)] min-w-0"
               />
               {searchInput && (
-                <button onClick={() => { setSearchInput(''); }} className="text-[var(--color-text-muted)] hover:text-[var(--color-text)]">
+                <button onClick={() => { setSearchInput(''); }} className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] flex-shrink-0">
                   <X size={14} />
                 </button>
               )}
@@ -427,8 +428,8 @@ export default function PatientsPage() {
                 setSearchParams(val ? { categoryId: val } : {});
                 setPage(1);
               }}
-              className="form-select text-sm"
-              style={{ height: '36px', width: 'auto', minWidth: '140px' }}
+              className="form-select text-sm flex-1 sm:flex-none"
+              style={{ height: '36px', minWidth: '120px', maxWidth: '180px' }}
             >
               <option value="">All Categories</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -439,8 +440,8 @@ export default function PatientsPage() {
               id="patient-status-filter"
               value={statusFilter}
               onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-              className="form-select text-sm"
-              style={{ height: '36px', width: 'auto', minWidth: '130px' }}
+              className="form-select text-sm flex-1 sm:flex-none"
+              style={{ height: '36px', minWidth: '110px', maxWidth: '160px' }}
             >
               {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
@@ -453,20 +454,20 @@ export default function PatientsPage() {
                 const [f, o] = e.target.value.split(':');
                 setSortBy(f); setSortOrder(o); setPage(1);
               }}
-              className="form-select text-sm"
-              style={{ height: '36px', width: 'auto', minWidth: '150px' }}
+              className="form-select text-sm flex-1 sm:flex-none"
+              style={{ height: '36px', minWidth: '120px', maxWidth: '170px' }}
             >
               {SORT_FIELDS.map(o => (
-                <>
-                  <option key={`${o.value}:desc`} value={`${o.value}:desc`}>{o.label} ↓</option>
-                  <option key={`${o.value}:asc`} value={`${o.value}:asc`}>{o.label} ↑</option>
-                </>
+                <React.Fragment key={o.value}>
+                  <option value={`${o.value}:desc`}>{o.label} ↓</option>
+                  <option value={`${o.value}:asc`}>{o.label} ↑</option>
+                </React.Fragment>
               ))}
             </select>
 
             <button
               onClick={fetchPatients}
-              className="btn btn-outline btn-sm flex items-center gap-1 p-2"
+              className="btn btn-outline btn-sm flex items-center gap-1 p-2 flex-shrink-0"
               title="Refresh"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -475,7 +476,7 @@ export default function PatientsPage() {
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-xs text-[var(--color-primary-600)] underline hover:text-[var(--color-primary-700)]"
+                className="text-xs text-[var(--color-primary-600)] underline hover:text-[var(--color-primary-700)] whitespace-nowrap flex-shrink-0"
               >
                 Clear all filters
               </button>
@@ -602,9 +603,9 @@ export default function PatientsPage() {
 
             {/* Pagination */}
             {!loading && pagination.totalPages > 1 && (
-              <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--color-border)] text-sm">
-                <span className="text-[var(--color-text-muted)]">
-                  Page {pagination.page} of {pagination.totalPages} ({pagination.total} total)
+              <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-t border-[var(--color-border)] text-sm">
+                <span className="text-[var(--color-text-muted)] text-xs sm:text-sm">
+                  Page {pagination.page} of {pagination.totalPages} ({pagination.total.toLocaleString('en-IN')} total)
                 </span>
                 <div className="flex items-center gap-2">
                   <button

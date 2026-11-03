@@ -238,8 +238,10 @@ function CalendarView({ appointments, onStatusChange, role, onNewAppointment }) 
         </div>
       ) : (
         // Day / Week column view
-        <div className="overflow-x-auto">
-          <div className={`grid ${calMode === 'day' ? 'grid-cols-1' : 'grid-cols-7'} min-w-[600px]`}>
+        <div>
+          <p className="cal-scroll-hint">← swipe to navigate days →</p>
+          <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <div className={`grid ${calMode === 'day' ? 'grid-cols-1' : 'grid-cols-7'} ${calMode === 'week' ? 'min-w-[560px]' : ''}`}>
             {days.map(d => {
               const iso = dayIsoStr(d);
               const dayApts = aptsByDate[iso] || [];
@@ -292,6 +294,7 @@ function CalendarView({ appointments, onStatusChange, role, onNewAppointment }) 
                 </div>
               );
             })}
+          </div>
           </div>
         </div>
       )}
@@ -593,15 +596,15 @@ export default function AppointmentsPage() {
       {/* Search + Filters */}
       <div className="flex flex-wrap gap-3">
         {/* Search */}
-        <div className="card p-3 flex items-center gap-2 flex-1 min-w-[260px]">
+        <div className="card p-3 flex items-center gap-2 flex-1 min-w-[220px]">
           <Search size={16} className="text-[var(--color-text-muted)] shrink-0" />
           <input
             type="search"
             id="appointment-search"
-            placeholder="Search by patient, doctor, category, or appointment ID…"
+            placeholder="Search patient, doctor, category…"
             value={search}
             onChange={e => handleSearchChange(e.target.value)}
-            className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)]"
+            className="flex-1 text-sm bg-transparent outline-none text-[var(--color-text)] min-w-0"
           />
           {search && (
             <button
@@ -615,13 +618,13 @@ export default function AppointmentsPage() {
 
         {/* Category filter */}
         {categories.length > 0 && (
-          <div className="card p-2.5 flex items-center gap-2">
-            <Tag size={14} className="text-[var(--color-text-muted)]" />
+          <div className="card p-2.5 flex items-center gap-2 min-w-[130px]">
+            <Tag size={14} className="text-[var(--color-text-muted)] flex-shrink-0" />
             <select
               id="apt-category-filter"
               value={catFilter}
               onChange={e => setCatFilter(e.target.value)}
-              className="text-sm bg-transparent outline-none text-[var(--color-text)] cursor-pointer pr-1"
+              className="text-sm bg-transparent outline-none text-[var(--color-text)] cursor-pointer pr-1 min-w-0 flex-1"
             >
               <option value="">All Categories</option>
               {categories.map(c => (

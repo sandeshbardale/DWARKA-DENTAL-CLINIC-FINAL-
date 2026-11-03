@@ -107,8 +107,13 @@ export default function BookAppointmentModal({ patientId, patientName, onClose, 
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col animate-scale-in">
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center sm:p-4"
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="bg-white sm:rounded-2xl rounded-t-2xl shadow-2xl w-full max-w-lg max-h-[92svh] flex flex-col animate-scale-in">
+        {/* Drag handle on mobile */}
+        <div className="w-10 h-1 rounded-full bg-slate-300 mx-auto mt-3 sm:hidden" aria-hidden="true" />
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-[var(--color-border)]">
           <div className="flex items-center gap-2.5">
@@ -234,7 +239,7 @@ export default function BookAppointmentModal({ patientId, patientName, onClose, 
               </div>
 
               {/* Date & Time */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="apt-date" className="block text-xs font-semibold text-[var(--color-text-muted)] mb-1.5">
                     Date *

@@ -3,10 +3,20 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 /**
- * Premium Modal dialog with Portal, scale-in animation, frosted backdrop.
+ * Premium Modal dialog — Portal-based, fully responsive.
+ * On mobile: slides up from bottom (sheet-style).
+ * On desktop: centered, scale-in animation.
  */
 export default function Modal({ open, onClose, title, children, size = 'md', hideClose = false }) {
   const dialogRef = useRef(null);
+
+  // Prevent body scroll while modal is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -18,54 +28,70 @@ export default function Modal({ open, onClose, title, children, size = 'md', hid
   if (!open) return null;
 
   const sizeStyles = {
-    sm: 'w-full max-w-sm',
-    md: 'w-full max-w-lg',
-    lg: 'w-full max-w-2xl',
-    xl: 'w-full max-w-3xl',
+    sm:  'w-full max-w-sm',
+    md:  'w-full max-w-lg',
+    lg:  'w-full max-w-2xl',
+    xl:  'w-full max-w-3xl',
     '2xl': 'w-full max-w-5xl',
   };
 
   const modalNode = (
     <div
-      style={{
-        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-        zIndex: 999999,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        backgroundColor: 'rgba(15, 23, 42, 0.65)',
-        backdropFilter: 'blur(6px)',
-        padding: '16px',
-        overflowY: 'auto',
-        animation: 'fadeIn 0.2s ease',
-      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
       onClick={(e) => { if (e.target === e.currentTarget) onClose?.(); }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        backgroundColor: 'rgba(15,23,42,0.65)',
+        backdropFilter: 'blur(6px)',
+        animation: 'fadeIn 0.2s ease',
+        /* On mobile: flex-end to slide up; on larger: center */
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        padding: '0',
+        overflowY: 'hidden',
+      }}
+      className="sm:!items-center sm:!p-4"
     >
       <div
         ref={dialogRef}
+        className={`
+          relative z-10 flex flex-col
+          bg-white
+          w-full
+          sm:rounded-2xl sm:border sm:border-slate-200/80
+          rounded-t-2xl
+          overflow-hidden
+          ${sizeStyles[size]}
+        `}
         style={{
-          maxHeight: '88vh',
-          backgroundColor: '#ffffff',
-          display: 'flex',
-          flexDirection: 'column',
+          maxHeight: '92svh',
           boxShadow: '0 24px 64px rgba(15,23,42,0.18), 0 8px 24px rgba(15,23,42,0.08)',
           animation: 'scaleIn 0.22s ease',
         }}
-        className={`rounded-2xl border border-slate-200/80 w-full relative z-10 my-auto overflow-hidden ${sizeStyles[size]}`}
       >
-        {/* Premium Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-[var(--color-bg-subtle)] sticky top-0 z-20 flex-shrink-0">
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-100 sticky top-0 z-20 flex-shrink-0"
+          style={{ background: 'var(--color-bg-subtle)' }}
+        >
+          {/* Mobile drag handle */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1 rounded-full bg-slate-300 sm:hidden" aria-hidden="true" />
+
           <h2
             id="modal-title"
-            className="text-base font-bold text-[var(--color-text)] tracking-tight"
+            className="text-[0.9375rem] font-bold text-[var(--color-text)] tracking-tight pr-2"
           >
             {title}
           </h2>
           {!hideClose && (
             <button
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-transparent border-none text-slate-400 hover:bg-slate-200 hover:text-slate-700 transition-colors cursor-pointer"
+              className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-transparent border-none text-slate-400 hover:bg-slate-200 hover:text-slate-700 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X size={17} />
@@ -75,8 +101,8 @@ export default function Modal({ open, onClose, title, children, size = 'md', hid
 
         {/* Scrollable Body */}
         <div
-          style={{ maxHeight: 'calc(88vh - 66px)', overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}
-          className="p-6 flex-1 bg-white text-slate-900"
+          className="flex-1 overflow-y-auto bg-white text-slate-900 p-4 sm:p-6"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {children}
         </div>
@@ -92,7 +118,7 @@ export function ConfirmModal({ open, onClose, onConfirm, title, message, confirm
   return (
     <Modal open={open} onClose={onClose} title={title} size="sm">
       <p className="text-sm text-slate-600 leading-relaxed mb-6">{message}</p>
-      <div className="flex gap-3 justify-end">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
         <button
           onClick={onClose}
           className="btn btn-secondary btn-sm"

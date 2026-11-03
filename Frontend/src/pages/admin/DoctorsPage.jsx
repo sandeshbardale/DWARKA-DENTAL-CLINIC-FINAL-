@@ -193,7 +193,7 @@ function DoctorAvailabilityPanel({ doctor, onClose }) {
                 {addingSlot ? (
                   <form onSubmit={handleAddSlot} className="p-4 bg-[var(--color-bg-subtle)] rounded-xl border border-[var(--color-border)] space-y-3">
                     <p className="text-sm font-semibold text-[var(--color-text)]">Add Working Hours Slot</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium text-[var(--color-text-muted)] mb-1">Day of Week *</label>
                         <select
@@ -272,7 +272,7 @@ function DoctorAvailabilityPanel({ doctor, onClose }) {
                 {addingBlock ? (
                   <form onSubmit={handleAddBlock} className="p-4 bg-[var(--color-bg-subtle)] rounded-xl border border-[var(--color-border)] space-y-3">
                     <p className="text-sm font-semibold text-[var(--color-text)]">Add Leave / Unavailability Block</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium text-[var(--color-text-muted)] mb-1">From Date & Time *</label>
                         <input type="datetime-local" value={blockForm.start_at} onChange={e => setBlockForm(f => ({ ...f, start_at: e.target.value }))} className="form-input text-sm" required />
@@ -514,7 +514,7 @@ export default function DoctorsPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[var(--color-text-muted)] mb-1">Specialization *</label>
                 <input
@@ -540,7 +540,7 @@ export default function DoctorsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[var(--color-text-muted)] mb-1">Phone Number</label>
                 <input

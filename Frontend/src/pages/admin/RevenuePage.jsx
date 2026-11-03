@@ -33,8 +33,9 @@ function RecordPaymentModal({ onClose, onSave, saving }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="card p-6 w-full max-w-md space-y-4">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center sm:p-4" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="card p-6 w-full max-w-md space-y-4 rounded-t-2xl sm:rounded-2xl max-h-[90svh] overflow-y-auto">
+        <div className="w-10 h-1 rounded-full bg-slate-300 mx-auto sm:hidden" aria-hidden="true" />
         <h3 className="font-semibold text-[var(--color-text)]">Record New Payment</h3>
         <div className="space-y-3">
           <div>
@@ -78,12 +79,12 @@ function RecordPaymentModal({ onClose, onSave, saving }) {
             />
           </div>
         </div>
-        <div className="flex gap-2 justify-end">
+        <div className="flex flex-col-reverse sm:flex-row gap-2 sm:justify-end">
           <button onClick={onClose} disabled={saving} className="btn btn-outline btn-sm">Cancel</button>
           <button
             onClick={() => onSave({ patientId, amount: Number(amount), mode, notes, date })}
             disabled={saving || !patientId || !amount || Number(amount) <= 0}
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm justify-center"
           >
             {saving ? 'Recording…' : 'Record Payment'}
           </button>

@@ -333,13 +333,13 @@ export default function DoctorDashboardPage() {
                     <p className="text-xs text-[var(--color-text-muted)]">{apt.treatmentCategoryName || 'General Consultation'}</p>
                   </div>
                   <StatusBadge status={apt.status} />
-                  <div className="flex gap-1.5 items-center">
+                  <div className="flex gap-1.5 items-center flex-shrink-0">
                     {apt.status === 'scheduled' || apt.status === 'confirmed' ? (
                       <button onClick={() => markArrived(apt.id)} disabled={actionLoading === apt.id}
-                        className="btn btn-outline btn-xs cursor-pointer">Mark Arrived</button>
+                        className="btn btn-outline btn-xs cursor-pointer hidden xs:inline-flex sm:inline-flex">Mark Arrived</button>
                     ) : apt.status === 'arrived' || apt.status === 'in_progress' ? (
                       <button onClick={() => markCompleted(apt.id)} disabled={actionLoading === apt.id}
-                        className="btn btn-primary btn-xs cursor-pointer">Complete</button>
+                        className="btn btn-primary btn-xs cursor-pointer hidden xs:inline-flex sm:inline-flex">Complete</button>
                     ) : null}
                     <Link to={`/doctor/patients/${apt.patientId}`} className="btn btn-ghost btn-xs text-[var(--color-text-muted)]" title="View Patient Details">
                       <Eye size={15} />
