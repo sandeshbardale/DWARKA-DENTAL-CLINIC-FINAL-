@@ -13,6 +13,9 @@ export default function DashboardLayout() {
   const dispatch = useDispatch();
   const { sidebarCollapsed, sidebarMobileOpen } = useSelector(state => state.ui);
 
+  // Matches CSS sidebar widths: 260px expanded, 68px collapsed
+  const sidebarWidth = sidebarCollapsed ? 68 : 260;
+
   return (
     <div className="flex min-h-screen" style={{ background: 'var(--color-bg)' }}>
       {/* Mobile sidebar backdrop */}
@@ -24,11 +27,14 @@ export default function DashboardLayout() {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar — fixed, always locked in place */}
       <Sidebar />
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen transition-all duration-300 overflow-x-hidden">
+      {/* Main content — pushed right by sidebar width on desktop, full-width on mobile */}
+      <div
+        className="main-content-area flex flex-col min-h-screen transition-all duration-300 overflow-x-hidden"
+        style={{ '--sidebar-offset': `${sidebarWidth}px` }}
+      >
         <Header />
         <main
           className="flex-1 overflow-y-auto overflow-x-hidden animate-fade-in"
